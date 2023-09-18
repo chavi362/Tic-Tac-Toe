@@ -116,6 +116,11 @@ def draw_desc_diagnoal(player):
 
 def restart():
     tic_screen.fill(Background_color)
+    draw_lines()
+    player=1
+    for row in range(BOARD_ROWS):
+        for col in range(BOARD_COLS):
+            board[row][col]
 
 # main loop
 while True:
@@ -138,6 +143,10 @@ while True:
                     player = 2
                 elif player == 2:
                     player = 1
-            draw_figuers()
+                draw_figuers()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    restart()
 
     pygame.display.update()
