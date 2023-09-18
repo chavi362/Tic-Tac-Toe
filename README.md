@@ -34,10 +34,4 @@ This implementation of Tic Tac Toe allows for both single-player and two-player 
 - Implement a graphical user interface (GUI) using a library like Pygame.
 - Add additional features like a scoreboard or game statistics.
 
-## Contributions
 
-Contributions to this project are welcome. If you have any suggestions or would like to add new features, please feel free to submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
