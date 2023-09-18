@@ -58,22 +58,82 @@ def is_board_full():
 
 draw_lines()
 player = 1
+gameOver =False
+
+def check_win(player):
+    for col in range(BOARD_COLS):
+        if board[0][col] == board[1][col] == board[2][col] == player:
+            draw_verticl_winning_line(col, player)
+            return True
+    for row in range(BOARD_ROWS):
+        if board[row][0] == board[row][1] == board[row][2] == player:
+            draw_horizal_winning_line(row, player)
+            return True
+
+        if board[2][0] == board[1][1] == board[0][2] == player:
+            draw_asc_diagonal(player)
+            return True
+
+        if board[0][0] == board[1][1] == board[2][2] == player:
+            draw_desc_diagnoal(player)
+            return True
+
+
+
+
+def draw_verticl_winning_line(col, player):
+    posX = col*200 +100
+    if player == 1:
+        color = CIRCLE_COLOR
+    else:
+        color = CROSS_COLOR
+
+    pygame.draw.line(tic_screen, color, (posX,15), (posX, HEIGHT-15),20)
+
+def draw_horizal_winning_line(row, player):
+    posY = row*200 +100
+    if player == 1:
+        color = CIRCLE_COLOR
+    else:
+        color = CROSS_COLOR
+    pygame.draw.line(tic_screen, color, (15, posY),  (WIDTH -15,posY),15)
+
+def draw_asc_diagonal(player):
+    if player == 1:
+        color = CIRCLE_COLOR
+    else:
+        color = CROSS_COLOR
+
+    pygame.draw.line( tic_screen ,color, (15,HEIGHT-15),( WIDTH-15,15),15)
+def draw_desc_diagnoal(player):
+    if player == 1:
+        color = CIRCLE_COLOR
+    else:
+        color = CROSS_COLOR
+    pygame.draw.line(tic_screen, color, (15,15), (WIDTH-15, HEIGHT-15),20)
+
+
+
+def restart():
+    tic_screen.fill(Background_color)
+
 # main loop
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and not gameOver:
 
             mouseX = event.pos[0]
             mouseY = event.pos[1]
 
-            clicked_row= int(mouseY // 200)
+            clicked_row = int(mouseY // 200)
             clicked_col = int(mouseX // 200)
 
-            if available_square(clicked_row , clicked_col):
-                mark_square(clicked_row,clicked_col,player)
+            if available_square(clicked_row, clicked_col):
+                mark_square(clicked_row, clicked_col, player)
+                gameOver = check_win(player)
                 if player == 1:
                     player = 2
                 elif player == 2:
